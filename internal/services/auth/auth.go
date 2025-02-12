@@ -2,6 +2,8 @@ package auth
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -41,6 +43,7 @@ type UserProvider interface {
 
 type AppProvider interface {
 	App(ctx context.Context, appID int) (models.App, error)
+	SaveApp(ctx context.Context, name string, secret string) (int64, error)
 }
 
 // New creates a new Auth service.
@@ -137,4 +140,32 @@ func (a *Auth) RegisterNewUser(ctx context.Context, email string, pass string) (
 	}
 
 	return id, nil
+}
+
+func (a *Auth) CreateApp(ctx context.Context, name string) (int64, error) {
+	const op = "Auth.CreateApp"
+
+	log := a.log.With(
+		slog.String("op", op),
+		slog.String("name", name),
+	)
+
+	log.Info("creating app")
+
+	// Генерация секрета
+	const secretLength = 32
+	secret := make([]byte, secretLength)
+	if _, err := rand.Read(secret); err != nil {
+		log.Error("failed to generate secret", sl.Err(err))
+		return 0, fmt.Errorf("%s: %w", op, err)
+	}
+	secretStr := hex.EncodeToString(secret)
+
+	appID, err := a.appProvider.SaveApp(ctx, name, secretStr)
+	if err != nil {
+		log.Error("failed to save app", sl.Err(err))
+		return 0, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return appID, nil
 }

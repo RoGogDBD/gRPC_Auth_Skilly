@@ -20,10 +20,15 @@ type Auth interface {
 		password string,
 		appID int,
 	) (token string, err error)
-	RegisterNewUser(ctx context.Context,
+	RegisterNewUser(
+		ctx context.Context,
 		email string,
 		password string,
 	) (userID int64, err error)
+	CreateApp(
+		ctx context.Context,
+		name string,
+	) (appID int64, err error)
 }
 
 type serverAPI struct {
@@ -89,4 +94,20 @@ func (s *serverAPI) Register(
 	}
 
 	return &ssov1.RegisterResponse{UserId: uid}, nil
+}
+
+func (s *serverAPI) CreateApp(
+	ctx context.Context,
+	in *ssov1.CreateAppRequest,
+) (*ssov1.CreateAppResponse, error) {
+	if in.Name == "" {
+		return nil, status.Error(codes.InvalidArgument, "name is required")
+	}
+
+	appID, err := s.auth.CreateApp(ctx, in.GetName())
+	if err != nil {
+		return nil, status.Error(codes.Internal, "failed to create app")
+	}
+
+	return &ssov1.CreateAppResponse{AppId: appID}, nil
 }

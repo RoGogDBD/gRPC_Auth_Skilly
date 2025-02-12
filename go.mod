@@ -3,7 +3,7 @@ module sso
 go 1.23.5
 
 require (
-	github.com/RoGogDBD/protos_Skilly v0.0.2
+	github.com/RoGogDBD/protos_Skilly v0.0.4
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/golang-migrate/migrate/v4 v4.18.2

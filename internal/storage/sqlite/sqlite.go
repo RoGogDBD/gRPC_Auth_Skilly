@@ -105,3 +105,30 @@ func (s *Storage) App(ctx context.Context, id int) (models.App, error) {
 
 	return app, nil
 }
+
+// SaveApp saves app to db.
+func (s *Storage) SaveApp(ctx context.Context, name string, secret string) (int64, error) {
+	const op = "storage.sqlite.SaveApp"
+
+	stmt, err := s.db.Prepare("INSERT INTO apps(name, secret) VALUES(?, ?)")
+	if err != nil {
+		return 0, fmt.Errorf("%s: %w", op, err)
+	}
+
+	res, err := stmt.ExecContext(ctx, name, secret)
+	if err != nil {
+		var sqliteErr sqlite3.Error
+		if errors.As(err, &sqliteErr) && sqliteErr.ExtendedCode == sqlite3.ErrConstraintUnique {
+			return 0, fmt.Errorf("%s: %w", op, storage.ErrAppExists)
+		}
+
+		return 0, fmt.Errorf("%s: %w", op, err)
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return id, nil
+}

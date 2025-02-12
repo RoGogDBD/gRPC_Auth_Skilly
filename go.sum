@@ -2,6 +2,10 @@ github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/RoGogDBD/protos_Skilly v0.0.2 h1:l8ngBXJ85eSfE4j8nE92Y6BO6YcN8e7kDhFRmFs5Dxw=
 github.com/RoGogDBD/protos_Skilly v0.0.2/go.mod h1:4lblu2N0OmsZuZ1FMExPnJD/AsB5891zPGvt2ECn3gs=
+github.com/RoGogDBD/protos_Skilly v0.0.3 h1:8yRoGHzlvzZTVdVkQ6NcVbNH/cGtmCeDc+0nrvsCmQE=
+github.com/RoGogDBD/protos_Skilly v0.0.3/go.mod h1:4lblu2N0OmsZuZ1FMExPnJD/AsB5891zPGvt2ECn3gs=
+github.com/RoGogDBD/protos_Skilly v0.0.4 h1:KlT13TaQbZGbOVumonnxc/lZjxGmS62rhgKFpBLYIkY=
+github.com/RoGogDBD/protos_Skilly v0.0.4/go.mod h1:4lblu2N0OmsZuZ1FMExPnJD/AsB5891zPGvt2ECn3gs=
 github.com/brianvoe/gofakeit/v6 v6.28.0 h1:Xib46XXuQfmlLS2EXRuJpqcw8St6qSZz75OUo0tgAW4=
 github.com/brianvoe/gofakeit/v6 v6.28.0/go.mod h1:Xj58BMSnFqcn/fAQeSK+/PLtC5kSb7FJIq4JyGa8vEs=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
